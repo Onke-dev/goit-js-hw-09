@@ -12,15 +12,14 @@ const formData =
 
 document.addEventListener('DOMContentLoaded', () => {
     const zip = localStorage.getItem(MAIN_KEY);
-    try {
-        const data = JSON.parse(zip) || {};
-        formData.email = data.email || '';
-        formData.message = data.message || '';
+    if (!zip) return;
+    const data = JSON.parse(zip) || {};
+    formData.email = data.email || '';
+    formData.message = data.message || '';
 
-
-        form.elements.email.value = formData.email;
-        form.elements.email.value = formData.email;
-    } catch {}
+    form.elements.email.value = formData.email;
+    textarea.value = formData.message;
+    
 })
 
 form.addEventListener('input', (event) => {
@@ -36,7 +35,7 @@ form.addEventListener('input', (event) => {
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (formData.email === "" || formData.message === "") {
+    if (formData.email.trim() || formData.message.trim()) {
         return alert('Fill please all fields');
     } 
     console.log(formData);
