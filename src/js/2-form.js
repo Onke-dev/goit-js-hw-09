@@ -9,11 +9,6 @@ const formData =
     message: ""
 };
 
-form.addEventListener('input', (event) => {
-    formData[event.target.name] = event.target.value;
-    localStorage.setItem(MAIN_KEY, JSON.stringify(formData));
-    
-})
 
 document.addEventListener('DOMContentLoaded', () => {
     const zip = localStorage.getItem(MAIN_KEY);
@@ -26,6 +21,16 @@ document.addEventListener('DOMContentLoaded', () => {
         form.elements.email.value = formData.email;
         form.elements.email.value = formData.email;
     } catch {}
+})
+
+form.addEventListener('input', (event) => {
+    const keyData = event.target.name;
+
+    if (keyData === 'email' || keyData === 'message') {
+        formData[keyData] = event.target.value.trim();
+        localStorage.setItem(MAIN_KEY, JSON.stringify(formData));
+    }
+    
 })
 
 
