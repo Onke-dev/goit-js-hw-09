@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     formData.message = data.message || '';
 
     form.elements.email.value = formData.email;
-    textarea.value = formData.message;
+    form.elements.message.value = formData.message;
     
 })
 
@@ -26,7 +26,7 @@ form.addEventListener('input', (event) => {
     const keyData = event.target.name;
 
     if (keyData === 'email' || keyData === 'message') {
-        formData[keyData] = event.target.value.trim();
+        formData[keyData] = event.target.value;
         localStorage.setItem(MAIN_KEY, JSON.stringify(formData));
     }
     
@@ -35,7 +35,7 @@ form.addEventListener('input', (event) => {
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (formData.email.trim() || formData.message.trim()) {
+    if (formData.email.trim() === '' || formData.message.trim() === '') {
         return alert('Fill please all fields');
     } 
     console.log(formData);
